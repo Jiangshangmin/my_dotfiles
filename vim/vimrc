@@ -1,0 +1,118 @@
+set nocompatible              " be iMproved, required
+
+" for color in Tmux
+set background=dark
+set t_Co=256
+
+
+source ~/.vim/plugins.vim
+
+syntax enable
+
+set backspace=indent,eol,start        " Make backspace behave like every other editor
+let mapleader = ','                   " set , to be the leader
+set number                            " activate line number
+set autowriteall                      " automatically write the file when switching the buffer
+set complete=.,w,b,u                  " set our desired autocompletion
+set tabstop=4
+set softtabstop=4
+set expandtab
+set shiftwidth=4
+
+" Highlight current line
+set cursorline
+    
+"-------------------------Visuals----------------------------"
+" Plugin 'flazz/vim-colorschemes'
+" colorscheme solarized
+" colorscheme atom
+Plugin 'gosukiwi/vim-atom-dark'
+colorscheme atom-dark-256
+let g:solarized_termtrans=1
+
+" remove side scroll bars
+set guioptions-=l
+set guioptions-=L
+set guioptions-=r
+set guioptions-=R
+
+
+"-------------------------Searching--------------------------"
+set hlsearch
+set incsearch
+
+set nostartofline
+
+" Use relative line numbers
+if exists("&relativenumber")
+	set relativenumber
+	au BufReadPost * set relativenumber
+endif
+
+" toggle relative line number and number
+nmap <C-L><C-L> :set invrelativenumber \| set invnumber<CR>
+
+" toggle paste/nopaste
+nmap <C-P><C-P> :set invpaste<CR>
+
+"------------------------Split Managements-------------------"
+set splitbelow
+set splitright
+
+nmap <C-J> <C-W><C-J>
+nmap <C-K> <C-W><C-K>
+nmap <C-H> <C-W><C-H>
+nmap <C-L> <C-W><C-L>
+
+"--------------------------Mappings--------------------------"
+
+" Make it easy to edit the vimrc file.
+nmap <Leader>ed :tabedit $MYVIMRC<cr>
+
+" Add simple highlight removal
+nmap <Leader><space> :nohlsearch<cr>
+" Add simple paste/nopaste
+nmap <Leader>p :set paste<cr>
+nmap <Leader>n :set nopaste<cr>
+
+" Make NERDTree easier to toggle
+nmap <D-1> :NERDTreeToggle<cr>
+
+" Show hidden files
+let NERDTreeShowHidden=1
+
+" Quick Navigation
+nmap <C-k> <C-U>
+nmap <C-j> <C-D>
+
+
+nmap <D-r> :CtrlPBufTag<cr>
+nmap <D-e> :CtrlPMRUFiles<cr>
+
+
+"-------------------------Plugins-------------------------------"
+
+"/
+"/ CtrlP
+"/
+let g:ctrlp_custom_ignore = 'node_modules\DS_Store\|git'
+
+
+" Prompt for a command to run
+map <Leader>vp :VimuxPromptCommand<CR>
+
+
+"-------------------------Folding-------------------------------"
+set foldmethod=indent
+set foldlevel=99
+set foldnestmax=2
+nnoremap <space> za
+vnoremap <space> zf
+
+
+"-------------------------Auto-Commands--------------------------"
+" Automatically source the vimrc file on save.
+augroup autosourcing
+	autocmd!
+	autocmd BufWritePost .vimrc source %
+augroup END
